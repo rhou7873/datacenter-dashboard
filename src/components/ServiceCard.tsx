@@ -1,7 +1,7 @@
-import type { Service } from "@/lib/services";
+import type { Application } from "@/lib/applications";
 
 type Props = {
-  service: Service;
+  service: Application;
 };
 
 export function ServiceCard({ service }: Props) {

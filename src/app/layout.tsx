@@ -8,8 +8,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "CLUSTER.ADMIN",
-  description: "Homelab cluster administration interface",
+  title: "DATACENTER.ADMIN",
+  description: "Datacenter administration interface",
 };
 
 export default function RootLayout({

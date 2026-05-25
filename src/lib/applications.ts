@@ -1,22 +1,19 @@
-export type Service = {
+export type Application = {
   id: string;
   name: string;
   description: string;
   url: string;
-  category: ServiceCategory;
+  category: ApplicationCategory;
   icon: string;
   accent: string;
 };
 
-export type ServiceCategory =
-  | "Infrastructure"
-  | "Containers"
-  | "Storage"
-  | "Networking"
+export type ApplicationCategory =
+  | "Application"
   | "Data"
-  | "Security";
+  | "Infrastructure"
 
-export const services: Service[] = [
+export const applicationsw: Application[] = [
   {
     id: "proxmox",
     name: "Proxmox VE",
@@ -82,7 +79,7 @@ export const services: Service[] = [
   },
 ];
 
-export const categoryOrder: ServiceCategory[] = [
+export const categoryOrder: ApplicationCategory[] = [
   "Application",
   "Data",
   "Infrastructure",
