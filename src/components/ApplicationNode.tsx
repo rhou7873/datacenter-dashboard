@@ -4,17 +4,17 @@ type Props = {
   service: Application;
 };
 
-export function ServiceCard({ service }: Props) {
+export function ApplicationNode({ service: application }: Props) {
   let host: string;
   try {
-    host = new URL(service.url).host;
+    host = new URL(application.url).host;
   } catch {
-    host = service.url;
+    host = application.url;
   }
 
   return (
     <a
-      href={service.url}
+      href={application.url}
       target="_blank"
       rel="noopener noreferrer"
       className="terminal-card group relative flex flex-col gap-4 p-5"
@@ -31,7 +31,7 @@ export function ServiceCard({ service }: Props) {
             letterSpacing: "0.08em",
           }}
         >
-          [<span style={{ color: "var(--text)" }}>{service.icon}</span>]
+          [<span style={{ color: "var(--text)" }}>{application.icon}</span>]
         </span>
 
         {/* Arrow — brightens on hover via group */}
@@ -51,13 +51,13 @@ export function ServiceCard({ service }: Props) {
           className="text-[14px] font-bold tracking-wide"
           style={{ color: "var(--text)", letterSpacing: "0.06em" }}
         >
-          {service.name.toUpperCase()}
+          {application.name.toUpperCase()}
         </h3>
         <p
           className="text-[12px] leading-relaxed"
           style={{ color: "var(--text-dim)" }}
         >
-          {service.description}
+          {application.description}
         </p>
       </div>
 
@@ -76,7 +76,7 @@ export function ServiceCard({ service }: Props) {
           className="tracking-[0.1em]"
           style={{ color: "var(--text-muted)" }}
         >
-          //{service.category.toUpperCase()}
+          //{application.category.toUpperCase()}
         </span>
       </div>
 
