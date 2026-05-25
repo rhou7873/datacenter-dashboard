@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "charts/**"
+  workflow_dispatch:  # allow manual runs from the GitHub Actions UI
 
 jobs:
   release:
