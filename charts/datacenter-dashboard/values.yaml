@@ -1,0 +1,39 @@
+replicaCount: 1
+
+image:
+  repository: us-central1-docker.pkg.dev/datacenter-rhou-joshg/datacenter-dashboard/app
+  tag: latest
+  pullPolicy: Always
+
+# Set to the name of a kubernetes.io/dockerconfigjson Secret if your cluster
+# can't pull from Artifact Registry automatically (e.g. non-GKE clusters).
+imagePullSecrets:
+  - name: artifact-registry-key
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+ingress:
+  enabled: true
+  className: nginx
+  host: home.internal
+  tls:
+    enabled: true
+    secretName: datacenter-dashboard-tls
+    # cert-manager issuer — set issuerKind to "Issuer" for a namespace-scoped issuer
+    issuerName: internal-ca-issuer
+    issuerKind: ClusterIssuer
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 128Mi
+  limits:
+    cpu: 250m
+    memory: 256Mi
+
+# Extra environment variables injected into the container
+env: {}
+# MY_VAR: "value"
