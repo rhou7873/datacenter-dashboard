@@ -1,0 +1,128 @@
+@import "tailwindcss";
+
+/* ── Terminal colour system ───────────────────────────────────────── */
+:root {
+  --bg:              #050a05;
+  --bg-card:         #080e08;
+  --green:           #00ff41;
+  --green-dim:       #00b32c;
+  --green-muted:     #1a4a1a;
+  --text:            #a8d4a8;
+  --text-dim:        #4a7a50;
+  --text-muted:      #2a4a2c;
+  --border:          rgba(0, 255, 65, 0.18);
+  --border-bright:   rgba(0, 255, 65, 0.55);
+  --glow-sm:         0 0 6px rgba(0, 255, 65, 0.5);
+  --glow-md:         0 0 12px rgba(0, 255, 65, 0.35), 0 0 28px rgba(0, 255, 65, 0.12);
+  --glow-lg:         0 0 20px rgba(0, 255, 65, 0.45), 0 0 50px rgba(0, 255, 65, 0.18);
+}
+
+@theme inline {
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
+  /* Force monospace everywhere */
+  --font-sans: var(--font-geist-mono);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-mono), ui-monospace, "Courier New", monospace;
+}
+
+/* ── CRT scanlines overlay ────────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.07) 3px,
+    rgba(0, 0, 0, 0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── CRT vignette ─────────────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 50%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+  pointer-events: none;
+  z-index: 9998;
+}
+
+/* ── Animations ───────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes status-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 3px var(--green), 0 0 6px rgba(0,255,65,0.4);
+  }
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 6px var(--green), 0 0 14px rgba(0,255,65,0.6);
+  }
+}
+
+@keyframes flicker {
+  0%, 95%, 100% { opacity: 1; }
+  96% { opacity: 0.92; }
+  97% { opacity: 0.97; }
+  98% { opacity: 0.9; }
+}
+
+/* ── Utility classes ──────────────────────────────────────────────── */
+.cursor-blink {
+  color: var(--green);
+  animation: blink 1.1s step-start infinite;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: status-pulse 2.4s ease-in-out infinite;
+}
+
+.glow-text {
+  text-shadow: var(--glow-sm);
+}
+
+/* ── Terminal card ────────────────────────────────────────────────── */
+.terminal-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.12s ease;
+  animation: flicker 8s infinite;
+}
+
+.terminal-card:hover {
+  border-color: var(--border-bright);
+  box-shadow: var(--glow-md), inset 0 0 40px rgba(0, 255, 65, 0.025);
+  transform: translateY(-2px);
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 4px; }
+::-webkit-scrollbar-track { background: #000; }
+::-webkit-scrollbar-thumb { background: var(--green-muted); border-radius: 0; }
